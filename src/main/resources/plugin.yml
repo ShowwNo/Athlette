@@ -1,0 +1,11 @@
+name: Athlette
+version: ${project.version}
+main: com.showwno.athlette.Athlette
+api-version: 1.13
+
+commands:
+  athletic:
+    permission: "athlette"
+    aliases: athle
+  athle-result:
+    aliases: ares
