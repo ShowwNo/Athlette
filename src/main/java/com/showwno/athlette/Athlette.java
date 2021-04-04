@@ -2,6 +2,7 @@ package com.showwno.athlette;
 
 import com.showwno.athlette.command.AthleticCommand;
 import com.showwno.athlette.command.AthleticResultCommand;
+import com.showwno.athlette.listener.AsyncPlayerPreLoginListener;
 import com.showwno.athlette.listener.PlateClickEvent;
 import com.showwno.athlette.module.AthleticProcessor;
 import com.showwno.athlette.module.ConfigurationProcessor;
@@ -13,14 +14,16 @@ public final class Athlette extends JavaPlugin {
     @Override
     public void onEnable() {
         JAVA_PLUGIN = this;
-        // いろいろ実行!
+
         ConfigurationProcessor.onEnable();
         AthleticProcessor.onEnable();
-        // コマンド登録!
+
         new AthleticCommand(this);
         new AthleticResultCommand(this);
-        // リスナー登録!
+
+
         new PlateClickEvent(this);
+        new AsyncPlayerPreLoginListener(this);
     }
 
     @Override
