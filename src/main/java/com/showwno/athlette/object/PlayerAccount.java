@@ -71,6 +71,7 @@ public class PlayerAccount {
         CustomConfiguration c =  ConfigurationProcessor.RECORD_DATA;
         FileConfiguration con = c.getConfiguration();
         long sa;
+        boolean b;
         if (con.getLong(id + ".full.time", 0) >= 1) {
             Long current = con.getLong(id +".full.time", 0);
             sa = Math.abs(full - current);
@@ -78,30 +79,32 @@ public class PlayerAccount {
                 Resource.set(id +".full.time", full, c);
                 Resource.set(id +".full.by", p.getName(), c);
                 score = "§f«§9-"+TimeFormatter.format(sa)+"§f» §e§l更新!!";
-            } else score = "§f«§c+"+TimeFormatter.format(sa)+"§f»";
+                b = true;
+            } else {
+                b = false;
+                score = "§f«§c+" + TimeFormatter.format(sa) + "§f»";
+            }
         } else {
-            p.sendTitle("§7-- §6§l一番乗り!! §7--", "", 0, 5, 0);
+            b = true;
+            p.sendTitle("§7-- §6§l一番乗り!! §7--", "", 0, 100, 0);
             Resource.set(id + ".first", p.getName(), c);
             Resource.set(id + ".firsttime", full, c);
             Resource.set(id +".full.time", full, c);
             Resource.set(id +".full.by", p.getName(), c);
             score = "";
-        } p.sendMessage("§e§l≫ §f総合タイム結果: §l"+ TimeFormatter.format(full) +" "+ score);
+        }
+        p.sendMessage("§e§l≫ §f総合タイム結果: §l" + TimeFormatter.format(full) + " " + score);
         if (this.result == null) return;
         for(Long time : this.result.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
             if (con.getLong(id + ".cps." + i + ".time", 0) >= 1) {
                 Long current = con.getLong(id +".cps."+ i + ".time", 0);
                 sa = Math.abs(time - current);
-                if (current >= time) {
-                    Resource.set(id +".cps."+ i + ".time", time, c);
-                    Resource.set(id +".cps."+ i + ".by", p.getName(), c);
-                    score = "§f«§9-"+TimeFormatter.format(sa)+"§f» §e§l更新!!";
-                } else score = "§f«§c+"+TimeFormatter.format(sa)+"§f»";
-            } else {
-                Resource.set(id +".cps."+ i + ".time", time, c);
-                Resource.set(id +".cps."+ i + ".by", p.getName(), c);
-                score = "";
-            } p.sendMessage("§eCp.§l"+ i +" §7>> §f§l"+ TimeFormatter.format(time) +" "+ score);
+                if (current > time) score = "§f«§9-" + TimeFormatter.format(sa) + "§f»";
+                else if (current == time) score = "§f«§a§l±0秒§f»";
+                else score = "§f«§c+" + TimeFormatter.format(sa) + "§f»";
+                p.sendMessage("§eCp.§l" + i + " §7>> §f§l" + TimeFormatter.format(time) + " " + score);
+            } else p.sendMessage("§eCp.§l" + i + " §7>> §f§l" + TimeFormatter.format(time));
+            if (b) Resource.set(id + ".cps." + i + ".time", time, c);
             i ++;
         }
         deleteResult();

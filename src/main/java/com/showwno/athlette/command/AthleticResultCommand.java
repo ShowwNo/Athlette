@@ -40,8 +40,7 @@ public class AthleticResultCommand implements CommandExecutor, TabCompleter {
                     s.sendMessage("§e§l≫ §f総合タイム記録: §l"+ TimeFormatter.format(con.getLong( id + ".full.time")) + " §7§oBy."+ con.getString(id + ".full.by"));
                     for(String i : Objects.requireNonNull(con.getConfigurationSection(id + ".cps")).getKeys(false)) {
                         long time = con.getLong(id + ".cps." + i + ".time", 0);
-                        String name = con.getString(id + ".cps." + i + ".by", "???");
-                        s.sendMessage("§eCp.§l" + i + " §7>> §f§l" + TimeFormatter.format(time) + " §7§oBy." + name);
+                        s.sendMessage("§eCp.§l" + i + " §7>> §f§l" + TimeFormatter.format(time));
                     }
                 } else {
                     s.sendMessage("§7≫ "+ AthleticOption.name(id) +" §fにはまだ記録がありません!");
