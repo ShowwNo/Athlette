@@ -62,21 +62,17 @@ public class AthleticUtil {
         PlayerAccount account = PlayerProcessor.getPlayerFromUUID(p.getUniqueId().toString());
         ItemStack item_3 = new ItemStack(Material.BARRIER);
         ItemMeta meta_3 = item_3.getItemMeta();
-        meta_3.setLocalizedName("§7» §c§lアスレをやめる");
+        meta_3.setDisplayName("§7» §c§lアスレをやめる");
         meta_3.addItemFlags(ItemFlag.HIDE_DESTROYS);
         item_3.setItemMeta(meta_3);
 
         ItemStack item_4 = new ItemStack(Material.CLOCK);
         ItemMeta meta_4 = item_4.getItemMeta();
-        meta_4.setLocalizedName("§7» §a§l");
+        meta_4.setDisplayName("§7» §e§lチェックポイントへTP");
         meta_4.addItemFlags(ItemFlag.HIDE_PLACED_ON);
         item_4.setItemMeta(meta_4);
 
-        ItemStack item_5 = new ItemStack(AthleticUtil.getHideItem(account.getIsHide()));
-        ItemMeta meta_5 = item_5.getItemMeta();
-        meta_5.setLocalizedName("§7» §a§l");
-        meta_5.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        item_5.setItemMeta(meta_5);
+        ItemStack item_5 = AthleticUtil.getHideItem(account.getIsHide());
 
         p.getInventory().setItem(3, item_3);
         p.getInventory().setItem(4, item_4);
@@ -89,9 +85,21 @@ public class AthleticUtil {
         p.getInventory().clear(5);
     }
 
-    private static Material getHideItem(boolean b) {
-        if (b) return Material.GRAY_DYE;
-        return Material.LIME_DYE;
+    public static ItemStack getHideItem(boolean b) {
+        Material type;
+        String name;
+        if (b) {
+            type = Material.GRAY_DYE;
+            name = "§c§l無効";
+        } else {
+            type = Material.LIME_DYE;
+            name = "§a§l有効";
+        }
+        ItemStack item = new ItemStack(type);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§7» §fプレイヤー表示: " + name);
+        item.setItemMeta(meta);
+        return item;
     }
 
     public static void hide(Player p) {
