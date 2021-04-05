@@ -26,6 +26,7 @@ public final class Athlette extends JavaPlugin {
         new PlayerJoinQuitEvent(this);
         new PlayerInventoryClickEvent(this);
         new PlayerItemDropListener(this);
+        new PlayerFlyEvent(this);
     }
 
     @Override
