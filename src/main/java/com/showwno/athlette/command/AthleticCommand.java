@@ -2,8 +2,10 @@ package com.showwno.athlette.command;
 
 import com.showwno.athlette.Athlette;
 import com.showwno.athlette.module.AthleticProcessor;
+import com.showwno.athlette.module.ConfigurationProcessor;
 import com.showwno.athlette.object.AthleCP;
 import com.showwno.athlette.object.Athletic;
+import com.showwno.athlette.object.CustomConfiguration;
 import com.showwno.athlette.option.AthleticOption;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -186,6 +188,17 @@ public class AthleticCommand implements CommandExecutor, TabCompleter {
                         s.sendMessage("§7≫ コマンドに不備アリ! なんとかせい!");
                     }
                     break;
+                case "deleterecord":
+                    if (args.length >= 2) {
+                        if (AthleticProcessor.isExist(args[1])) {
+                            CustomConfiguration c = ConfigurationProcessor.RECORD_DATA;
+                            c.getConfiguration().set(args[1], null);
+                            s.sendMessage("§7≫ " + AthleticOption.name(args[1]) + " §fの記録データを削除しました!");
+                        } else s.sendMessage("§7≫ " + AthleticOption.name(args[1]) + " §fは存在しません!");
+                    } else {
+                        s.sendMessage("§7≫ コマンドに不備アリ! なんとかせい!");
+                    }
+                    break;
             }
         }
         return false;
@@ -206,6 +219,7 @@ public class AthleticCommand implements CommandExecutor, TabCompleter {
             comps.add("deletecp");
             comps.add("info");
             comps.add("list");
+            comps.add("deleterecord");
             StringUtil.copyPartialMatches(args[0], commands, comps);
 
         } else if (args.length == 2 && !(args[1].equals("list") || args[1].equals("create"))) {

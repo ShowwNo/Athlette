@@ -3,10 +3,14 @@ package com.showwno.athlette.object;
 import com.showwno.athlette.manager.Resource;
 import com.showwno.athlette.module.ConfigurationProcessor;
 import com.showwno.athlette.util.TimeFormatter;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PlayerAccount {
@@ -16,6 +20,8 @@ public class PlayerAccount {
     private long date0;
     private long date1;
     private List<Long> result = Arrays.asList(new Long[100]);
+    private boolean isHide;
+    private Location lastCP;
 
     public PlayerAccount(String uuid) {
         this.uuid = uuid;
@@ -24,6 +30,7 @@ public class PlayerAccount {
         this.date0 = 0;
         this.date1 = 0;
         Collections.fill(result, null);
+        this.isHide = false;
     }
 
     public String getUniqueId() {//30
@@ -73,6 +80,9 @@ public class PlayerAccount {
                 score = "§f«§9-"+TimeFormatter.format(sa)+"§f» §e§l更新!!";
             } else score = "§f«§c+"+TimeFormatter.format(sa)+"§f»";
         } else {
+            p.sendTitle("§7-- §6§l一番乗り!! §7--", "", 0, 5, 0);
+            Resource.set(id + ".first", p.getName(), c);
+            Resource.set(id + ".firsttime", full, c);
             Resource.set(id +".full.time", full, c);
             Resource.set(id +".full.by", p.getName(), c);
             score = "";
@@ -95,5 +105,21 @@ public class PlayerAccount {
             i ++;
         }
         deleteResult();
+    }
+
+    public boolean getIsHide() {
+        return this.isHide;
+    }
+
+    public void setIsHide(boolean b) {
+        this.isHide = b;
+    }
+
+    public Location getLastCP() {
+        return this.lastCP;
+    }
+
+    public void setLastCP(Location l) {
+        this.lastCP = l;
     }
 }

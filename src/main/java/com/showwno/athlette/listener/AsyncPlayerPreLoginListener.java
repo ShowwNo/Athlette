@@ -2,6 +2,7 @@ package com.showwno.athlette.listener;
 
 import com.showwno.athlette.Athlette;
 import com.showwno.athlette.module.PlayerProcessor;
+import com.showwno.athlette.object.PlayerAccount;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,6 @@ public class AsyncPlayerPreLoginListener implements Listener {
 
     @EventHandler
     public void onAsyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
-        PlayerProcessor.getPlayer(event.getUniqueId().toString(), event.getName());
+        PlayerProcessor.addPlayer(new PlayerAccount(event.getUniqueId().toString()));
     }
 }

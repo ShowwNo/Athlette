@@ -19,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class AthleticResultCommand implements CommandExecutor, TabCompleter {
     public AthleticResultCommand(Athlette pl) {
@@ -37,6 +36,7 @@ public class AthleticResultCommand implements CommandExecutor, TabCompleter {
                 CustomConfiguration c =  ConfigurationProcessor.RECORD_DATA;
                 FileConfiguration con = c.getConfiguration();
                 if (con.getLong( id + ".full.time", 0) >= 1) {
+                    s.sendMessage("§e§l≫ §f一番乗り: §l" + TimeFormatter.format(con.getLong(id + ".firsttime")) + " §6By.§l" + con.getString(id + ".first"));
                     s.sendMessage("§e§l≫ §f総合タイム記録: §l"+ TimeFormatter.format(con.getLong( id + ".full.time")) + " §7§oBy."+ con.getString(id + ".full.by"));
                     for(String i : Objects.requireNonNull(con.getConfigurationSection(id + ".cps")).getKeys(false)) {
                         long time = con.getLong(id + ".cps." + i + ".time", 0);
