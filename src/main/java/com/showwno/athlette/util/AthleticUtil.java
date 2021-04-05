@@ -98,6 +98,7 @@ public class AthleticUtil {
         ItemStack item = new ItemStack(type);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§7» §fプレイヤー表示: " + name);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
     }
