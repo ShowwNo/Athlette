@@ -104,7 +104,7 @@ public class Athletic {
         Resource.set(path + ".creator", this.creator, c);
         Resource.set(path + ".end", this.end, c);
         Resource.set(path + ".enter", this.enter, c);
-        Resource.set(path + ".enter", this.exit, c);
+        Resource.set(path + ".exit", this.exit, c);
         for (AthleCP cp : this.cp.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
             Resource.set(path + ".cps." + cp.getNum(), cp.getLoc(), c);
         }
