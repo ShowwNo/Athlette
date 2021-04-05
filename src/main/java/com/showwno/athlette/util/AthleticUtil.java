@@ -6,6 +6,7 @@ import com.showwno.athlette.object.Athletic;
 import com.showwno.athlette.object.PlayerAccount;
 import com.showwno.athlette.option.AthleticOption;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -42,21 +43,23 @@ public class AthleticUtil {
         PlayerAccount account = PlayerProcessor.getPlayerFromUUID(p.getUniqueId().toString());
         account.registerResult(account.getCP());
         account.saveResult(p, account.getPlayingAthletic().getId());
-        account.setPlayingAthletic(null);
         account.setCP(1);
-        if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
+        Location exit = account.getPlayingAthletic().getExit();
+        if (exit != null) p.teleport(exit);
         AthleticUtil.deleteAthleInventory(p);
         if (account.getIsHide()) unhide(p);
+        account.setPlayingAthletic(null);
     }
 
     public static void end(Player p) {
         PlayerAccount account = PlayerProcessor.getPlayerFromUUID(p.getUniqueId().toString());
-        if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
-        account.setPlayingAthletic(null);
+        Location exit = account.getPlayingAthletic().getExit();
+        if (exit != null) p.teleport(exit);
         account.setCP(1);
         account.deleteResult();
         AthleticUtil.deleteAthleInventory(p);
         if (account.getIsHide()) unhide(p);
+        account.setPlayingAthletic(null);
     }
 
 

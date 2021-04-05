@@ -22,6 +22,7 @@ public class Athletic {
     private Location enter;
     private Location exit;
 
+
     public Athletic(String id) {
         String path = "athletic." + id;
         CustomConfiguration c = ConfigurationProcessor.SERVER_DATA;
