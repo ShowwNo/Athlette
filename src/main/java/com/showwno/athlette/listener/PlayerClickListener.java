@@ -49,6 +49,7 @@ public class PlayerClickListener implements Listener {
             p.teleport(account.getLastCP());
             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 2, 1);
         } else if (ev.getItem().getItemFlags().contains(ItemFlag.HIDE_DESTROYS)) {
+            ev.setCancelled(true);
             AthleticUtil.end(p);
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, SoundCategory.MASTER, 2, 0.2f);
         }
