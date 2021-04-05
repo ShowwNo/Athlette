@@ -7,7 +7,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Athletic {
@@ -100,6 +103,8 @@ public class Athletic {
         Resource.set(path + ".name", this.name, c);
         Resource.set(path + ".creator", this.creator, c);
         Resource.set(path + ".end", this.end, c);
+        Resource.set(path + ".enter", this.enter, c);
+        Resource.set(path + ".enter", this.exit, c);
         for (AthleCP cp : this.cp.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
             Resource.set(path + ".cps." + cp.getNum(), cp.getLoc(), c);
         }
