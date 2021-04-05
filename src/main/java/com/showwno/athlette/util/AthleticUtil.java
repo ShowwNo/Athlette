@@ -50,7 +50,7 @@ public class AthleticUtil {
 
     public static void end(Player p) {
         PlayerAccount account = PlayerProcessor.getPlayerFromUUID(p.getUniqueId().toString());
-        if (account.getPlayingAthletic().getEnter() != null) p.teleport(account.getPlayingAthletic().getExit());
+        if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
         account.setPlayingAthletic(null);
         account.setCP(1);
         account.deleteResult();
