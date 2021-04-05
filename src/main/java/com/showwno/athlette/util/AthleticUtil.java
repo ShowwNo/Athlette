@@ -44,24 +44,19 @@ public class AthleticUtil {
         account.saveResult(p, account.getPlayingAthletic().getId());
         account.setPlayingAthletic(null);
         account.setCP(1);
-        try {
-            if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
-        } catch (Exception ignored) {
-        }
+        if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
         AthleticUtil.deleteAthleInventory(p);
+        if (account.getIsHide()) unhide(p);
     }
 
     public static void end(Player p) {
         PlayerAccount account = PlayerProcessor.getPlayerFromUUID(p.getUniqueId().toString());
-        try {
-            if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
-        } catch (Exception ignored) {
-        }
-
+        if (account.getPlayingAthletic().getExit() != null) p.teleport(account.getPlayingAthletic().getExit());
         account.setPlayingAthletic(null);
         account.setCP(1);
         account.deleteResult();
         AthleticUtil.deleteAthleInventory(p);
+        if (account.getIsHide()) unhide(p);
     }
 
 

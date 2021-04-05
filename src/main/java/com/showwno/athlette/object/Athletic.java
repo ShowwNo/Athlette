@@ -19,8 +19,8 @@ public class Athletic {
     private String creator;
     private Integer end;
     private List<AthleCP> cp = Arrays.asList(new AthleCP[100]);
-    private Location enter = null;
-    private Location exit = null;
+    private Location enter;
+    private Location exit;
 
     public Athletic(String id) {
         String path = "athletic." + id;
@@ -32,8 +32,10 @@ public class Athletic {
         this.end = (Integer) Resource.get(path + ".end", c, 1);
         if (c.getConfiguration().getLocation(path + ".enter") != null)
             this.enter = c.getConfiguration().getLocation(path + ".enter");
+        else this.enter = null;
         if (c.getConfiguration().getLocation(path + ".exit") != null)
             this.exit = c.getConfiguration().getLocation(path + ".exit");
+        else this.exit = null;
         Collections.fill(cp, null);
         if (!(con == null)) {
             for (String key : con.getKeys(false)) {
